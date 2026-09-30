@@ -1,0 +1,36 @@
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- if L == "es" -%}{%- assign lp = "/es" -%}{%- else -%}{%- assign lp = "" -%}{%- endif -%}
+{%- assign cat = page.categories | first -%}
+{%- assign accent = site.category_colors[cat] | default: "clay" -%}
+{%- assign is_prof = false -%}
+{%- if page.layout == "profile" or page.scientist -%}{%- assign is_prof = true -%}{%- endif -%}
+{%- assign sec = "" -%}
+{%- if page.url contains "/scientists/" or is_prof -%}{%- assign sec = "scientists" -%}
+{%- elsif page.url contains "/stories/" or page.layout == "post" -%}{%- assign sec = "stories" -%}
+{%- elsif page.url == "/topics/" -%}{%- assign sec = "topics" -%}
+{%- elsif page.url == "/about/" -%}{%- assign sec = "about" -%}{%- endif -%}
+{%- capture u_sci -%}{{ lp }}/scientists/{%- endcapture -%}
+{%- capture u_sto -%}{{ lp }}/stories/{%- endcapture -%}
+<header id="site-nav" class="site-nav">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <a href="{{ lp | append: '/' | relative_url }}" id="nav-logo" class="nav-logo">justciencia</a>
+      <div class="battery" title="Scroll progress" aria-hidden="true">
+        <svg width="34" height="18" viewBox="0 0 28 14">
+          <rect x="0.75" y="0.75" width="24" height="12.5" rx="2.5" fill="rgba(255,253,249,0.75)" stroke="rgba(46,33,22,0.35)" stroke-width="1"/>
+          <rect x="25.5" y="4.5" width="2" height="5" rx="1" fill="rgba(46,33,22,0.35)"/>
+          <rect id="battery-fill-rect" x="2.25" y="2.25" width="0" height="9.5" fill="#e35444"/>
+        </svg>
+        <span id="battery-pct">0%</span>
+      </div>
+    </div>
+    <nav class="nav-links" aria-label="Main">
+      <a href="{{ u_sci | relative_url }}" class="nav-link{% if sec == 'scientists' %} current{% endif %}"{% if page.url == u_sci %} aria-current="page"{% endif %}>{{ T.nav_scientists }}</a>
+      <a href="{{ u_sto | relative_url }}" class="nav-link{% if sec == 'stories' %} current{% endif %}"{% if page.url == u_sto %} aria-current="page"{% endif %}>{{ T.nav_stories }}</a>
+      <a href="{{ '/topics/' | relative_url }}" class="nav-link{% if sec == 'topics' %} current{% endif %}"{% if page.url == '/topics/' %} aria-current="page"{% endif %}>{{ T.nav_topics }}</a>
+      <a href="{{ '/about/' | relative_url }}" class="nav-link{% if sec == 'about' %} current{% endif %}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>{{ T.nav_about }}</a>
+    </nav>
+  </div>
+  <div id="section-accent" class="section-accent" style="background:var(--{{ accent }});"></div>
+</header>

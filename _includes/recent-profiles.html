@@ -1,0 +1,33 @@
+{%- comment -%} The row of the most recent approved profiles (skips the featured one). Needs c_profiles and feat_gid. {%- endcomment -%}
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- assign rp_count = 0 -%}
+<section class="recent-profiles" aria-labelledby="rp-title">
+  <div class="container">
+    <h2 class="rp-title" id="rp-title">{{ T.recent_profiles }}</h2>
+    <div class="rp-row">
+      {%- for q in c_profiles -%}
+        {%- if rp_count < 4 -%}
+        {%- include pair-resolve.html p=q pool=c_profiles -%}
+        {%- assign gid = en_p.url | default: es_p.url -%}
+        {%- assign has_lang = false -%}{%- if L == "es" -%}{%- if es_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- else -%}{%- if en_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- endif -%}
+        {%- unless skip_card or gid == feat_gid or has_lang == false -%}
+        {%- assign rp_count = rp_count | plus: 1 -%}
+        {%- include pf.html p=shown_p -%}
+        {%- assign rp_langs = card_langs | split: " " -%}
+        <a class="rp-card" href="{{ shown_p.url | relative_url }}">
+          <span class="rp-photo" aria-hidden="true">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="" loading="lazy">{% else %}<span>{{ pf_name | slice: 0 }}</span>{% endif %}</span>
+          <span class="rp-name">{{ pf_name }}</span>
+          <span class="rp-meta">{{ pf_inst }}</span>
+          {% if pf_field %}<span class="rp-field">{{ pf_field }}</span>{% endif %}
+          {% if rp_langs.size > 1 %}<span class="sc-langs" aria-label="English, Español">{% for lg in rp_langs %}<span class="lang-badge">{{ lg | upcase }}</span>{% endfor %}</span>{% endif %}
+        </a>
+        {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if rp_count == 0 %}
+      <p class="rp-empty">{{ T.more_profiles }}{% if L == "en" and site.data.applications.apps_script_url and site.data.applications.apps_script_url != "" %} <a href="{{ '/scientists/#apply' | relative_url }}">{{ T.nominate_cta }}</a>{% endif %}</p>
+      {%- endif %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+# Privacy-friendly analytics (GoatCounter: no cookies, no personal data, free for non-commercial sites).
+#
+# 1. Create a free account at https://www.goatcounter.com/signup and choose a site code (for example "justciencia").
+# 2. Paste just the code between the quotes below and commit.
+# 3. Your stats appear at https://YOURCODE.goatcounter.com
+#
+# Leave it empty ("") and no analytics are loaded at all.
+goatcounter_code: ""

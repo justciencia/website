@@ -1,0 +1,26 @@
+{%- include pair-resolve.html p=include.post pool=c_stories -%}
+{%- unless skip_card -%}
+{%- assign p = shown_p -%}
+{%- assign pcat = p.categories | first -%}
+{%- assign pcolor = site.category_colors[pcat] | default: "clay" -%}
+{%- assign words = p.content | number_of_words -%}
+{%- assign pl_ = page.lang | default: "en" -%}{%- assign T = site.data.copy.ui[pl_] -%}
+<article class="post-row story c-{{ pcolor }}" data-cat="{{ pcat | slugify }}" data-langs="{{ card_langs }}"
+  {%- if en_p %} data-en-url="{{ en_p.url | relative_url }}" data-en-title="{{ en_p.title | escape }}" data-en-desc="{{ en_p.description | default: en_p.excerpt | strip_html | strip_newlines | truncatewords: 26 | escape }}"{% endif %}
+  {%- if es_p %} data-es-url="{{ es_p.url | relative_url }}" data-es-title="{{ es_p.title | escape }}" data-es-desc="{{ es_p.description | default: es_p.excerpt | strip_html | strip_newlines | truncatewords: 26 | escape }}"{% endif %}>
+  <a class="story-cover" href="{{ p.url | relative_url }}" data-f="link" tabindex="-1" aria-hidden="true">
+    {% if p.cover %}<img src="{{ p.cover | relative_url }}" alt="" loading="lazy">{% else %}<span class="cover-art"></span>{% endif %}
+    <span class="cover-tag">{{ pcat | default: "Story" }}</span>
+  </a>
+  <div class="story-body">
+    <div class="post-row-meta">
+      {%- include fmt-date.html d=p.date lang=p.lang -%}
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ fmt_short }}</time>
+      <span>{{ words | divided_by: 200 | plus: 1 }} {{ T.min_read }}</span>
+      {%- if card_langs contains "es" %}<span class="lang-badges" aria-label="English, Español"><span class="lang-badge">EN</span><span class="lang-badge">ES</span></span>{% endif %}
+    </div>
+    <h3><a href="{{ p.url | relative_url }}" data-f="link"><span data-f="title">{{ p.title }}</span></a></h3>
+    <p data-f="desc">{{ p.description | default: p.excerpt | strip_html | strip_newlines | truncatewords: 26 }}</p>
+  </div>
+</article>
+{%- endunless -%}

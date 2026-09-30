@@ -1,0 +1,60 @@
+{%- include collect.html -%}
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- assign seen = "|" -%}{%- assign has_es = false -%}{%- assign found = 0 -%}
+{%- capture chips -%}
+{%- for q in c_profiles -%}
+  {%- include pair-resolve.html p=q pool=c_profiles -%}
+  {%- unless skip_card -%}
+    {%- assign found = found | plus: 1 -%}
+    {%- include pf.html p=shown_p -%}
+    {%- if pf_field -%}
+      {%- capture needle -%}|{{ pf_fslug }}|{%- endcapture -%}
+      {%- unless seen contains needle -%}{%- assign seen = seen | append: pf_fslug | append: "|" -%}<button type="button" class="chip" data-filter="{{ pf_fslug }}" aria-pressed="false">{{ pf_field }}</button>{%- endunless -%}
+    {%- endif -%}
+    {%- if card_langs contains "es" -%}{%- assign has_es = true -%}{%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign chips = chips | strip -%}
+<section class="page-head">
+  <div class="container">
+    {% if L == "es" %}{% include lang-switch.html %}{% endif %}
+    <div class="eyebrow">{{ T.nav_scientists }}</div>
+    <h1>{{ T.scientists_title }}</h1>
+  </div>
+</section>
+<section class="page-body">
+  <div class="container">
+    <p class="prose" style="max-width:760px;margin-bottom:36px;">{{ T.scientists_intro }}{% if L == "en" and site.data.applications.apps_script_url and site.data.applications.apps_script_url != "" %} <a href="#apply">{{ T.nominate_cta }}</a>.{% endif %}</p>
+    {%- if chips != "" %}
+    <div class="filters" role="group" aria-label="{{ T.filter_field }}" id="sc-field-filters">
+      <span class="flabel">{{ T.filter_field }}</span>
+      <button type="button" class="chip" data-filter="all" aria-pressed="true">{{ T.filter_all }}</button>{{ chips }}
+    </div>
+    {%- endif %}
+    {%- if has_es %}
+    <div class="filters lang-filters" role="group" aria-label="{{ T.filter_language }}">
+      <span class="flabel">{{ T.filter_language }}</span>
+      <button type="button" class="chip" data-lang="all" aria-pressed="true">{{ T.filter_all }}</button>
+      <button type="button" class="chip" data-lang="en" aria-pressed="false" lang="en">English</button>
+      <button type="button" class="chip" data-lang="es" aria-pressed="false" lang="es">Español</button>
+    </div>
+    {%- endif %}
+    <div class="sc-grid" id="sc-grid" data-default-lang="{{ L }}">
+      {%- for p in c_profiles %}
+      {% include profile-card.html p=p %}
+      {%- endfor %}
+      {%- for p in c_profiles %}
+      {% include profile-dialog.html p=p %}
+      {%- endfor %}
+    </div>
+    <p class="empty" id="sc-empty" hidden>{{ T.no_scientists }}</p>
+    {%- if found == 0 %}<p class="empty">{{ T.first_profile_soon }}</p>{% endif %}
+  </div>
+</section>
+{%- if L == "en" %}
+{% include apply.html %}
+{%- endif %}
+<script src="{{ '/assets/js/scientists.js' | relative_url }}" defer></script>
+{%- if L == "en" and site.data.applications.apps_script_url and site.data.applications.apps_script_url != "" %}<script src="{{ '/assets/js/apply.js' | relative_url }}" defer></script>{% endif %}

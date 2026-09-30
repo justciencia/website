@@ -1,0 +1,11 @@
+{%- assign g = page.graph -%}
+<aside class="graphbox" aria-label="Graph cheat sheet">
+  <div class="gb-kicker">Graph guide</div>
+  {%- if g.name %}<div class="gb-name">{{ g.name }}</div>{% endif %}
+  <dl>
+    {%- if g.x %}<div><dt>X-axis</dt><dd>{{ g.x }}</dd></div>{% endif %}
+    {%- if g.y %}<div><dt>Y-axis</dt><dd>{{ g.y }}</dd></div>{% endif %}
+    {%- if g.set %}<div><dt>You set</dt><dd>{{ g.set }}</dd></div>{% endif %}
+    {%- if g.learn %}<div><dt>You learn</dt><dd>{{ g.learn }}</dd></div>{% endif %}
+  </dl>
+</aside>

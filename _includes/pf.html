@@ -1,0 +1,26 @@
+{%- comment -%}
+  Reads one profile post and sets the pf_* variables used by the cards and pages.
+  It understands the newer profile fields (name, institution, hook, ...) and the older "scientist:" block,
+  so profiles written either way keep working.  Usage: {% include pf.html p=post %}
+{%- endcomment -%}
+{%- assign P = include.p -%}
+{%- assign S = P.scientist -%}
+{%- assign pf_lang = P.lang | default: "en" -%}
+{%- comment -%} Jekyll's own "name" is the file name, so the older scientist: block is read first, then the newer name: field {%- endcomment -%}
+{%- assign pf_name = S.name | default: P.name -%}
+{%- if pf_name contains ".md" -%}{%- assign pf_name = P.title -%}{%- endif -%}
+{%- assign pf_inst = P.institution | default: S.university -%}
+{%- assign pf_jobtitle = S.title -%}
+{%- assign pf_field = P.field | default: S.field -%}
+{%- assign pf_fslug = pf_field | slugify -%}
+{%- assign pf_hook = P.hook | default: S.research -%}
+{%- assign pf_science_line = P.science_line | default: S.research | default: P.hook -%}
+{%- assign pf_heritage = P.hometown_or_heritage -%}
+{%- assign pf_path_line = P.path_line | default: P.hometown_or_heritage -%}
+{%- assign pf_bio = S.bio | default: P.hook | default: S.research -%}
+{%- assign pf_photo = P.photo | default: S.photo -%}
+{%- assign pf_alt = P.photo_alt | default: S.photo_alt -%}
+{%- unless pf_alt -%}{%- capture pf_alt -%}Photo of {{ pf_name }}{%- endcapture -%}{%- endunless -%}
+{%- assign pf_credit = P.photo_credit | default: S.photo_credit -%}
+{%- assign pf_links = S.links -%}
+{%- if P.languages -%}{%- assign pf_langs = P.languages -%}{%- else -%}{%- assign pf_langs = pf_lang | split: "," -%}{%- endif -%}

@@ -1,0 +1,15 @@
+{%- comment -%}
+  Formats a date in the language of the page it belongs to.  Usage: {% include fmt-date.html d=post.date lang=post.lang %}
+  Sets fmt_long ("October 13, 2026" / "13 de octubre de 2026") and fmt_short ("Oct 13, 2026" / "13 oct 2026").
+{%- endcomment -%}
+{%- assign fd_l = include.lang | default: "en" -%}
+{%- if fd_l == "es" -%}
+  {%- assign fd_m = include.d | date: "%-m" | minus: 1 -%}
+  {%- assign fd_names = site.data.copy.ui.es.months -%}
+  {%- assign fd_short = site.data.copy.ui.es.months_short -%}
+  {%- capture fmt_long -%}{{ include.d | date: "%-d" }} de {{ fd_names[fd_m] }} de {{ include.d | date: "%Y" }}{%- endcapture -%}
+  {%- capture fmt_short -%}{{ include.d | date: "%-d" }} {{ fd_short[fd_m] }} {{ include.d | date: "%Y" }}{%- endcapture -%}
+{%- else -%}
+  {%- assign fmt_long = include.d | date: "%B %-d, %Y" -%}
+  {%- assign fmt_short = include.d | date: "%b %-d, %Y" -%}
+{%- endif -%}

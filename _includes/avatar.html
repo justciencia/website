@@ -1,0 +1,3 @@
+<div class="avatar">
+  {% if site.author.photo and site.author.photo != "" %}<img src="{{ site.author.photo | relative_url }}" alt="{{ site.author.name }}">{% else %}{{ site.author.short | slice: 0 }}{% endif %}
+</div>

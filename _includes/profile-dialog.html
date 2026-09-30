@@ -1,0 +1,22 @@
+{%- include pf.html p=include.p -%}
+{%- assign TT = site.data.copy.ui[pf_lang] -%}
+<dialog class="sc-dialog" id="sci-{{ include.p.slug }}" aria-labelledby="sci-{{ include.p.slug }}-name">
+  <button type="button" class="sc-close" aria-label="Close profile">&times;</button>
+  <div class="sc-dlg-body">
+    <div class="sc-dlg-photo">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="{{ pf_alt | escape }}" loading="lazy">{% else %}<span aria-hidden="true">{{ pf_name | slice: 0 }}</span>{% endif %}</div>
+    <div class="sc-dlg-info">
+      <h3 id="sci-{{ include.p.slug }}-name">{{ pf_name }}</h3>
+      {% if pf_jobtitle %}<div class="sc-dlg-title">{{ pf_jobtitle }}</div>{% endif %}
+      <div class="sc-dlg-uni">{{ pf_inst }}</div>
+      {% if pf_field %}<div class="sc-dlg-field">{{ pf_field }}</div>{% endif %}
+      {% if pf_heritage %}<div class="sc-dlg-title">{{ pf_heritage }}</div>{% endif %}
+      <p class="sc-dlg-bio">{{ pf_bio }}</p>
+      <a class="pill-btn pill-btn-primary sc-dlg-cta" href="{{ include.p.url | relative_url }}">{{ TT.read_full_profile }}</a>
+      {% if pf_links %}
+      <div class="sc-dlg-connect">Connect</div>
+      <div class="sc-dlg-links">{% for l in pf_links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</div>
+      {% endif %}
+      {% if pf_credit %}<div class="sc-dlg-credit">Photo: {{ pf_credit }}</div>{% endif %}
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,50 @@
+# ---------- justciencia: site settings ----------
+title: justciencia
+tagline: Science, explained plainly.
+description: A science blog about electrochemistry, materials, and energy.
+lang: en
+
+# Repo named "website"  (site at justciencia.github.io/website/):  baseurl: "/website"
+# Repo named "justciencia.github.io" (site at the root) or a custom domain:  baseurl: ""
+url: "https://justciencia.github.io"
+baseurl: "/website"
+
+author:
+  name: justciencia
+  short: justciencia
+  bio: A science blog about the chemistry, materials, and engineering behind energy and technology.
+  photo: ""   # optional, e.g. /assets/images/logo.png (put the file there) to show an image instead of a letter
+
+
+# Category colors. Available: clay (orange), yellow, rust (red), green.
+# Any category not listed here uses "clay".
+category_colors:
+  Electrochemistry: clay
+  Materials: green
+  Energy: yellow
+  Semiconductors: rust
+  Basics: rust
+
+permalink: /:year/:month/:title/
+paginate_path: /page:num/
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post

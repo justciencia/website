@@ -1,0 +1,22 @@
+{%- comment -%}
+  "Meet the scientist behind this": shown on an explainer that has  related_scientist: their-profile-slug
+  The slug is the profile's file name without the date and .md. Only approved profiles ever show. Needs c_profiles.
+{%- endcomment -%}
+{%- if page.related_scientist -%}
+  {%- assign rs = nil -%}
+  {%- for q in c_profiles -%}{%- if q.slug == page.related_scientist -%}{%- assign rs = q -%}{%- break -%}{%- endif -%}{%- endfor -%}
+  {%- if rs -%}
+  {%- include pf.html p=rs -%}
+  {%- assign pl_ = page.lang | default: "en" -%}{%- assign TT = site.data.copy.ui[pl_] -%}
+  <aside class="related-sci" aria-label="{{ TT.related_scientist }}">
+    <a class="rs-photo" href="{{ rs.url | relative_url }}" tabindex="-1" aria-hidden="true">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="{{ pf_alt | escape }}" loading="lazy">{% else %}<span>{{ pf_name | slice: 0 }}</span>{% endif %}</a>
+    <div class="rs-text">
+      <div class="kicker">{{ TT.related_scientist }}</div>
+      <a class="rs-name" href="{{ rs.url | relative_url }}">{{ pf_name }}</a>
+      <div class="rs-meta">{{ pf_inst }}{% if pf_field %} &middot; {{ pf_field }}{% endif %}</div>
+      {% if pf_hook %}<p>{{ pf_hook }}</p>{% endif %}
+      <a class="readlink" href="{{ rs.url | relative_url }}">{{ TT.read_profile }} <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </aside>
+  {%- endif -%}
+{%- endif -%}

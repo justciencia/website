@@ -1,0 +1,17 @@
+{%- assign sc = page.scientist -%}
+{%- if sc.photo_alt -%}{%- assign alt = sc.photo_alt -%}{%- else -%}{%- capture alt %}Photo of {{ sc.name }}{% endcapture -%}{%- endif -%}
+<aside class="scibox" aria-label="Featured scientist">
+  <div class="sb-photo">{% if sc.photo %}<img src="{{ sc.photo | relative_url }}" alt="{{ alt }}">{% else %}<span aria-hidden="true">{{ sc.name | slice: 0 }}</span>{% endif %}</div>
+  <div class="sb-info">
+    <div class="sb-kicker">Featured scientist</div>
+    <div class="sb-name">{{ sc.name }}</div>
+    {%- if sc.title %}<div class="sb-line">{{ sc.title }}</div>{% endif %}
+    {%- if sc.university %}<div class="sb-uni">{{ sc.university }}</div>{% endif %}
+    {%- if sc.field %}<div class="sb-line">Field: {{ sc.field }}</div>{% endif %}
+    {%- if sc.research %}<p class="sb-research">{{ sc.research }}</p>{% endif %}
+    {%- if sc.links %}
+    <div class="sb-links">{% for l in sc.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</div>
+    {%- endif %}
+    {%- if sc.photo_credit %}<div class="sb-credit">Photo: {{ sc.photo_credit }}</div>{% endif %}
+  </div>
+</aside>

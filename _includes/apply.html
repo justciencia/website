@@ -1,0 +1,129 @@
+{%- assign apply_url = site.data.applications.apps_script_url -%}
+{%- if apply_url and apply_url != "" -%}
+<section class="apply-band" id="apply" data-endpoint="{{ apply_url }}" aria-labelledby="apply-title">
+  <div class="container apply-wrap">
+    <div class="apply-intro">
+      <div class="eyebrow">Nominations</div>
+      <h2 id="apply-title">Nominate a scientist</h2>
+      <p>Know a Latino scientist or engineer whose story deserves to be told? You can nominate yourself or someone else. Share a little about the science, and if it&rsquo;s a good fit I&rsquo;ll reach out to set up a call. Nothing is published without the scientist&rsquo;s written approval.</p>
+      <button type="button" class="apply-toggle" id="apply-toggle" aria-expanded="false" aria-controls="apply-panel" disabled>Nominate a scientist <span class="apply-caret" aria-hidden="true"></span></button>
+      <p class="apply-status" id="apply-status" role="status" aria-live="polite"></p>
+      <noscript><p class="apply-status">This form needs JavaScript to work.</p></noscript>
+    </div>
+    <div class="apply-panel" id="apply-panel" inert>
+      <div class="apply-inner">
+        <form id="apply-form" class="apply-form" novalidate>
+          <fieldset class="who" id="ap-who">
+            <legend>Who are you nominating? <span class="req" aria-hidden="true">*</span></legend>
+            <div class="radios">
+              <label class="radio"><input type="radio" name="who" value="myself" id="ap-who-myself"> Myself</label>
+              <label class="radio"><input type="radio" name="who" value="someone" id="ap-who-someone"> Someone else</label>
+            </div>
+            <div class="err" id="ap-who-err"></div>
+          </fieldset>
+
+          <div class="apply-rest" id="apply-rest" hidden>
+            <h3 class="apply-sub" data-m="other" hidden>About you</h3>
+            <div class="fld" data-m="other" hidden>
+              <label for="ap-nom-name">Your name <span class="req" aria-hidden="true">*</span></label>
+              <input id="ap-nom-name" name="nominator_name" type="text" autocomplete="name" maxlength="120" disabled>
+              <div class="err" id="ap-nom-name-err"></div>
+            </div>
+            <div class="fld" data-m="other" hidden>
+              <label for="ap-nom-email">Your email <span class="req" aria-hidden="true">*</span></label>
+              <input id="ap-nom-email" name="nominator_email" type="email" autocomplete="email" maxlength="200" aria-describedby="ap-nom-email-help" disabled>
+              <div class="help" id="ap-nom-email-help">Private. Only used to reply to you.</div>
+              <div class="err" id="ap-nom-email-err"></div>
+            </div>
+            <h3 class="apply-sub" data-m="other" hidden>About the scientist</h3>
+
+            <div class="fld">
+              <label for="ap-name"><span data-m="self">Full name</span><span data-m="other" hidden>Scientist&rsquo;s full name</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="ap-name" name="name" type="text" autocomplete="off" maxlength="120">
+              <div class="err" id="ap-name-err"></div>
+            </div>
+            <div class="fld">
+              <label for="ap-email"><span data-m="self">Email</span><span data-m="other" hidden>Scientist&rsquo;s email</span> <span class="req" data-m="self" aria-hidden="true">*</span><span class="opt" data-m="other" hidden>(optional)</span></label>
+              <input id="ap-email" name="email" type="email" autocomplete="off" maxlength="200" aria-describedby="ap-email-help">
+              <div class="help" id="ap-email-help"><span data-m="self">Private. Only used to reply to you.</span><span data-m="other" hidden>Private. Only used to reach out about a profile.</span></div>
+              <div class="err" id="ap-email-err"></div>
+            </div>
+            <div class="fld">
+              <label for="ap-stage"><span data-m="self">Career stage</span><span data-m="other" hidden>Their career stage</span> <span class="req" aria-hidden="true">*</span></label>
+              <select id="ap-stage" name="stage">
+                <option value="">Choose one</option>
+                <option>Undergraduate student</option>
+                <option>Graduate student</option>
+                <option>Postdoctoral researcher</option>
+                <option>Professor or faculty</option>
+                <option>Industry or national-lab scientist</option>
+                <option>Other</option>
+                <option value="Not sure" data-m="other" hidden disabled>I&rsquo;m not sure</option>
+              </select>
+              <div class="err" id="ap-stage-err"></div>
+            </div>
+            <div class="fld">
+              <label for="ap-institution"><span data-m="self">University or institution</span><span data-m="other" hidden>Their university or institution</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="ap-institution" name="institution" type="text" autocomplete="off" maxlength="200">
+              <div class="err" id="ap-institution-err"></div>
+            </div>
+            <div class="fld">
+              <label for="ap-field"><span data-m="self">Scientific topic</span><span data-m="other" hidden>Their scientific topic</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="ap-field" name="field" type="text" maxlength="160" placeholder="For example: electrochemistry, ecology, neuroscience">
+              <div class="err" id="ap-field-err"></div>
+            </div>
+            <div class="fld" data-m="other" hidden>
+              <label for="ap-reach">How can I reach them? <span class="opt">(optional)</span></label>
+              <input id="ap-reach" name="reach" type="text" maxlength="300" placeholder="A website, social profile, or other way to find them" aria-describedby="ap-reach-help" disabled>
+              <div class="help" id="ap-reach-help">Anything that helps me get in touch.</div>
+            </div>
+            <div class="fld full">
+              <label for="ap-summary"><span data-m="self">Your science in plain words</span><span data-m="other" hidden>Their science in plain words</span> <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="ap-summary" name="summary" rows="5" maxlength="1500" aria-describedby="ap-summary-help"></textarea>
+              <div class="help" id="ap-summary-help"><span data-m="self">A few sentences a curious 12-year-old could follow: what do you study, and why does it matter?</span><span data-m="other" hidden>A few sentences a curious 12-year-old could follow: what do they study, and why does it matter? It&rsquo;s okay if you only know part of it.</span> <span class="count" id="ap-count">0 / 1500</span></div>
+              <div class="err" id="ap-summary-err"></div>
+            </div>
+            <div class="fld full">
+              <label for="ap-story"><span data-m="self">What&rsquo;s your story?</span><span data-m="other" hidden>What&rsquo;s their story?</span> <span class="opt">(optional)</span></label>
+              <textarea id="ap-story" name="story" rows="4" maxlength="1500" aria-describedby="ap-story-help"></textarea>
+              <div class="help" id="ap-story-help"><span data-m="self">Anything about your path you&rsquo;d like me to know.</span><span data-m="other" hidden>Anything about their path you&rsquo;d like me to know.</span></div>
+            </div>
+            <div class="fld">
+              <label for="ap-link"><span data-m="self">Link to a paper, lab page, or profile</span><span data-m="other" hidden>Link to their paper, lab page, or profile</span> <span class="opt">(optional)</span></label>
+              <input id="ap-link" name="link" type="url" maxlength="300" placeholder="https://">
+              <div class="err" id="ap-link-err"></div>
+            </div>
+            <div class="fld">
+              <label for="ap-describe"><span data-m="self">Would you like to share your roots?</span><span data-m="other" hidden>Would they like to share their roots?</span> <span class="opt">(optional)</span></label>
+              <input id="ap-describe" name="describe" type="text" maxlength="300" placeholder="For example: from Mexico; parents from Colombia" aria-describedby="ap-describe-help">
+              <div class="help" id="ap-describe-help"><span data-m="self">Your nationality, or your family&rsquo;s, if you&rsquo;d like it mentioned in your profile. Leave it blank and I won&rsquo;t include it.</span><span data-m="other" hidden>Their nationality, or their family&rsquo;s, only if you know they&rsquo;d like it mentioned. Leave it blank if you&rsquo;re not sure.</span></div>
+            </div>
+            <div class="fld full">
+              <label for="ap-notes">Anything else you&rsquo;d like me to know? <span class="opt">(optional)</span></label>
+              <textarea id="ap-notes" name="notes" rows="3" maxlength="800"></textarea>
+            </div>
+            <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="fld full consent" data-m="other" hidden>
+              <label class="check"><input type="checkbox" id="ap-tell" name="tell" value="yes" disabled> <span>I&rsquo;ll let them know I nominated them. <span class="req" aria-hidden="true">*</span></span></label>
+              <div class="err" id="ap-tell-err"></div>
+            </div>
+            <div class="fld full consent">
+              <label class="check"><input type="checkbox" id="ap-consent" name="consent" value="yes"> <span><span data-m="self">It&rsquo;s okay to email me about being featured.</span><span data-m="other" hidden>It&rsquo;s okay to email me about this nomination.</span> <span class="req" aria-hidden="true">*</span></span></label>
+              <div class="err" id="ap-consent-err"></div>
+            </div>
+            <div class="full actions">
+              <button type="submit" class="apply-submit" id="apply-submit">Send</button>
+              <p class="apply-status" id="apply-form-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </form>
+        <div class="apply-done" id="apply-done" hidden tabindex="-1">
+          <h3>Thank you!</h3>
+          <p data-m="self">Thanks for sharing your science. I read every one, and if it looks like a good fit I&rsquo;ll email you to set up a call.</p>
+          <p data-m="other" hidden>Thank you for the nomination! I read every one, and if it looks like a good fit I&rsquo;ll reach out to set up a call. Nothing is published without the scientist&rsquo;s written approval.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}

@@ -1,0 +1,14 @@
+{%- include lang-pair.html -%}
+{%- assign my_lang = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[my_lang] -%}
+<nav class="lang-switch" aria-label="{{ T.lang_switch_label }}">
+  {%- if my_lang == "en" -%}
+  <span class="ls-item on" lang="en" aria-current="true">English</span>
+  {%- if pair_url != "" -%}<a class="ls-item" href="{{ pair_url | relative_url }}" lang="es" hreflang="es">Español</a>
+  {%- else -%}<span class="ls-item off" lang="es" aria-disabled="true">Español <small>({{ T.coming_soon }})</small></span>{%- endif -%}
+  {%- else -%}
+  {%- if pair_url != "" -%}<a class="ls-item" href="{{ pair_url | relative_url }}" lang="en" hreflang="en">English</a>
+  {%- else -%}<span class="ls-item off" lang="en" aria-disabled="true">English</span>{%- endif -%}
+  <span class="ls-item on" lang="es" aria-current="true">Español</span>
+  {%- endif -%}
+</nav>

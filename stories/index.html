@@ -1,0 +1,19 @@
+---
+layout: default
+title: Stories
+permalink: /stories/
+ref: stories
+description: "Explainers, graph guides, and paper summaries that help you understand the science behind the profiles."
+---
+{% include collect.html %}
+{%- assign T = site.data.copy.ui.en -%}
+<section class="page-head">
+  <div class="container">
+    <div class="eyebrow">{{ T.nav_stories }}</div>
+    <h1>{{ T.stories_title }}</h1>
+  </div>
+</section>
+<div class="container blog" id="stories">
+  <p class="section-intro">{{ T.stories_intro }}</p>
+  {% include stories-list.html %}
+</div>

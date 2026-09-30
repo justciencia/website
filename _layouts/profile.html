@@ -1,0 +1,58 @@
+---
+layout: default
+---
+{% include collect.html %}
+{% assign L = page.lang | default: "en" %}
+{% assign T = site.data.copy.ui[L] %}
+{% if page.approved_by_scientist == false %}
+<section class="page-head"><div class="container"><div class="eyebrow">{{ T.scientist_profile }}</div><h1>{{ T.not_published_title }}</h1></div></section>
+<section class="page-body"><div class="container"><div class="narrow prose"><p>{{ T.not_published_text }} <a href="{{ '/scientists/' | relative_url }}">{{ T.nav_scientists }}</a></p></div></div></section>
+{% else %}
+{% include pf.html p=page %}
+{% assign cat = page.categories | first %}
+{% assign color = site.category_colors[cat] | default: "clay" %}
+{% if page.vocab %}<link rel="stylesheet" href="{{ '/assets/css/learn.css' | relative_url }}">{% endif %}
+<article class="profile c-{{ color }}">
+  <header class="post-head profile-head">
+    <div class="wrap">
+      {% include lang-switch.html %}
+      <div class="profile-id">
+        <figure class="profile-photo">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="{{ pf_alt | escape }}">{% else %}<span aria-hidden="true">{{ pf_name | slice: 0 }}</span>{% endif %}{% if pf_credit %}<figcaption>Photo: {{ pf_credit }}</figcaption>{% endif %}</figure>
+        <div class="profile-meta">
+          <a class="post-cat" href="{{ '/scientists/' | relative_url }}">{{ T.scientist_profile }}</a>
+          <h1>{{ pf_name }}</h1>
+          <div class="profile-inst">{{ pf_inst }}{% if pf_field %} &middot; {{ pf_field }}{% endif %}</div>
+          {% if pf_heritage %}<div class="profile-heritage">{{ pf_heritage }}</div>{% endif %}
+          {% if pf_hook %}<p class="dek">{{ pf_hook }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% if page.quote %}
+  <figure class="pullquote"><blockquote><p>&ldquo;{{ page.quote }}&rdquo;</p></blockquote></figure>
+  {% endif %}
+
+  <div class="post-body-wrap">
+    <div class="prose profile-prose">
+      {% if page.path_text %}<h2>{{ T.the_path }}</h2>
+      {{ page.path_text | markdownify }}{% endif %}
+      {% if page.science_text or page.analogy %}<h2>{{ T.the_science }}</h2>
+      {{ page.science_text | markdownify }}
+      {% if page.analogy %}<aside class="analogy"><div class="analogy-label">{{ T.analogy }}</div>
+      {{ page.analogy | markdownify }}</aside>{% endif %}{% endif %}
+      {% if page.why_text %}<h2>{{ T.why_it_matters }}</h2>
+      {{ page.why_text | markdownify }}{% endif %}
+      {{ content }}
+      {% if page.learn_more %}<h2>{{ T.learn_more }}</h2>
+      <ul class="learn-list">{% for l in page.learn_more %}<li><a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% if l.note %}<span class="learn-note"> &mdash; {{ l.note }}</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    {% if page.vocab %}{% include vocab.html %}{% endif %}
+  </div>
+
+  <nav class="post-nav" aria-label="{{ T.nav_scientists }}">
+    <a class="prev c-{{ color }}" href="{{ '/scientists/' | relative_url | replace: '/scientists/', '/scientists/' }}"><div class="dir">{{ T.nav_scientists }}</div><div class="t">{{ T.all_scientists }}</div></a>
+  </nav>
+</article>
+{% endif %}
+{% if page.vocab %}<script src="{{ '/assets/js/learn.js' | relative_url }}" defer></script>{% endif %}

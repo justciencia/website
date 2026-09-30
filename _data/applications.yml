@@ -1,0 +1,8 @@
+# Featured-scientist applications.
+#
+# After you set up the Google Sheet (see the setup guide), paste its "Web app URL" between the quotes.
+# Leave it empty ("") and the application section stays hidden on the Scientists page.
+#
+# To open or close applications, use the checkbox in the "Settings" tab of your Google Sheet.
+# It changes instantly and there is nothing to upload here.
+apps_script_url: ""

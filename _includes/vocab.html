@@ -1,0 +1,16 @@
+<section class="vocab" aria-labelledby="vocab-title">
+  <div class="vocab-head">
+    <h2 id="vocab-title">Key terms in Spanish</h2>
+    <button type="button" class="chip vocab-practice" aria-pressed="false">Practice</button>
+  </div>
+  <p class="vocab-sub">English on the left, Spanish on the right. Tap &ldquo;Practice&rdquo; to hide the Spanish, then tap a word to flip it.</p>
+  <ul class="vocab-list">
+    {%- for v in page.vocab %}
+    <li><button type="button" class="vocab-row">
+      <span class="v-en" lang="en">{{ v.en }}</span>
+      <span class="v-es" lang="es">{{ v.es }}</span>
+      {%- if v.note %}<span class="v-note">{{ v.note }}</span>{% endif %}
+    </button></li>
+    {%- endfor %}
+  </ul>
+</section>

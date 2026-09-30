@@ -1,0 +1,20 @@
+---
+layout: default
+lang: es
+title: Historias
+permalink: /es/stories/
+ref: stories
+---
+{% include collect.html %}
+{%- assign T = site.data.copy.ui.es -%}
+<section class="page-head">
+  <div class="container">
+    {% include lang-switch.html %}
+    <div class="eyebrow">{{ T.nav_stories }}</div>
+    <h1>{{ T.stories_title }}</h1>
+  </div>
+</section>
+<div class="container blog" id="stories">
+  <p class="section-intro">{{ T.stories_intro }}</p>
+  {% include stories-list.html %}
+</div>

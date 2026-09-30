@@ -1,0 +1,9 @@
+{%- assign g = page.glance -%}
+<aside class="glance" aria-label="At a glance">
+  <div class="glance-title">At a glance</div>
+  <dl>
+    {%- if g.question %}<div><dt>The question</dt><dd>{{ g.question }}</dd></div>{% endif %}
+    {%- if g.found %}<div><dt>What they found</dt><dd>{{ g.found }}</dd></div>{% endif %}
+    {%- if g.catch %}<div><dt>The catch</dt><dd>{{ g.catch }}</dd></div>{% endif %}
+  </dl>
+</aside>

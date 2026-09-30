@@ -1,0 +1,15 @@
+{%- comment -%}
+  Finds the other-language version of this page, if there is one.
+  Two versions are paired by giving them the same  ref:  value in their front matter.
+  Sets: pair_url, pair_lang (both empty when there is no partner).
+{%- endcomment -%}
+{%- assign pair_url = "" -%}{%- assign pair_lang = "" -%}
+{%- assign my_lang = page.lang | default: "en" -%}
+{%- if page.ref -%}
+  {%- assign pool = site.posts | where_exp: "q", "q.approved_by_scientist != false" | concat: site.pages -%}
+  {%- assign pair_list = pool | where: "ref", page.ref -%}
+  {%- for q in pair_list -%}
+    {%- assign q_lang = q.lang | default: "en" -%}
+    {%- if q_lang != my_lang and pair_url == "" -%}{%- assign pair_url = q.url -%}{%- assign pair_lang = q_lang -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

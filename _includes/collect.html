@@ -1,0 +1,12 @@
+{%- comment -%}
+  The one place that decides what visitors may see.
+  c_approved : every post EXCEPT those with approved_by_scientist: false
+  c_profiles : approved scientist profiles (new style, or the older "scientist:" style), newest first
+  c_stories  : approved explainers and other non-profile posts, newest first
+  A post with no approved_by_scientist field at all (such as your sample profile) counts as approved.
+{%- endcomment -%}
+{%- assign c_approved = site.posts | where_exp: "q", "q.approved_by_scientist != false" -%}
+{%- assign c_prof_a = c_approved | where_exp: "q", "q.layout == 'profile'" -%}
+{%- assign c_prof_b = c_approved | where_exp: "q", "q.scientist" -%}
+{%- assign c_profiles = c_prof_a | concat: c_prof_b | uniq | sort: "date" | reverse -%}
+{%- assign c_stories = c_approved | where_exp: "q", "q.layout != 'profile'" | where_exp: "q", "q.scientist == nil" -%}

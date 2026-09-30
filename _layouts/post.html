@@ -1,0 +1,95 @@
+---
+layout: default
+---
+{% include collect.html %}
+{% assign L = page.lang | default: "en" %}
+{% assign T = site.data.copy.ui[L] %}
+{% assign cat = page.categories | first %}
+{% assign color = site.category_colors[cat] | default: "clay" %}
+{% assign words = content | number_of_words %}
+{% if page.vocab or page.paper or page.glance or page.graph or page.scientist or page.scripts %}
+<link rel="stylesheet" href="{{ '/assets/css/learn.css' | relative_url }}">
+{% endif %}
+{% if page.approved_by_scientist == false %}
+<section class="page-head"><div class="container"><div class="eyebrow">{{ T.scientist_profile }}</div><h1>{{ T.not_published_title }}</h1></div></section>
+<section class="page-body"><div class="container"><div class="narrow prose"><p>{{ T.not_published_text }} <a href="{{ '/scientists/' | relative_url }}">{{ T.nav_scientists }}</a></p></div></div></section>
+{% else %}
+<article class="c-{{ color }}">
+  <header class="post-head">
+    <div class="wrap">
+      {% if page.ref %}{% include lang-switch.html %}{% endif %}
+      {% if cat %}<a class="post-cat" href="{{ '/stories/' | relative_url }}#{{ cat | slugify }}">{{ cat }}</a>{% endif %}
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="dek">{{ page.description }}</p>{% endif %}
+      <div class="post-meta">
+        {% include fmt-date.html d=page.date lang=page.lang %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ fmt_long }}</time>
+        <span>{{ words | divided_by: 200 | plus: 1 }} {{ T.min_read }}</span>
+      </div>
+      {% if page.paper %}{% include paper-box.html %}{% endif %}
+      {% if page.graph %}{% include graph-box.html %}{% endif %}
+      {% if page.scientist %}{% include scientist-box.html %}{% endif %}
+    </div>
+  </header>
+
+  {% if page.image %}
+  <figure class="post-hero">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}">
+    {% if page.image_caption %}<figcaption>{{ page.image_caption }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  <div class="post-body-wrap">
+    {% if page.glance %}{% include glance.html %}{% endif %}
+    <div class="prose">
+      {{ content }}
+    </div>
+    {% if page.vocab %}{% include vocab.html %}{% endif %}
+    {% include related-scientist.html %}
+  </div>
+
+  <aside class="author-box">
+    <div class="card">
+      {% include avatar.html %}
+      <div>
+        <h4>About justciencia</h4>
+        <p>{{ site.author.bio }}</p>
+        <a class="more" href="{{ '/about/' | relative_url }}">About this blog</a>
+      </div>
+    </div>
+  </aside>
+
+  {%- if page.scientist %}
+  <nav class="post-nav" aria-label="{{ T.nav_scientists }}">
+    <a class="prev c-{{ color }}" href="{{ '/scientists/' | relative_url }}"><div class="dir">{{ T.nav_scientists }}</div><div class="t">{{ T.all_scientists }}</div></a>
+  </nav>
+  {%- else %}
+  {%- if page.lang == "es" -%}{%- assign nav_pool = c_stories | where: "lang", "es" -%}{%- else -%}{%- assign nav_pool = c_stories | where_exp: "q", "q.lang != 'es'" -%}{%- endif -%}
+  {%- assign idx = -1 -%}
+  {%- for s in nav_pool -%}{%- if s.url == page.url -%}{%- assign idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+  {%- assign prev_post = nil -%}{%- assign next_post = nil -%}
+  {%- if idx >= 0 -%}
+    {%- assign prev_i = idx | plus: 1 -%}{%- assign next_i = idx | minus: 1 -%}
+    {%- assign prev_post = nav_pool[prev_i] -%}
+    {%- if next_i >= 0 -%}{%- assign next_post = nav_pool[next_i] -%}{%- endif -%}
+  {%- endif -%}
+  <nav class="post-nav" aria-label="{{ T.more_stories }}">
+    {%- if prev_post %}
+    {%- assign pc = prev_post.categories | first %}
+    <a class="prev c-{{ site.category_colors[pc] | default: 'clay' }}" href="{{ prev_post.url | relative_url }}">
+      <div class="dir">{{ T.prev_story }}</div><div class="t">{{ prev_post.title }}</div>
+    </a>
+    {%- endif %}
+    {%- if next_post %}
+    {%- assign nc = next_post.categories | first %}
+    <a class="next c-{{ site.category_colors[nc] | default: 'clay' }}" href="{{ next_post.url | relative_url }}">
+      <div class="dir">{{ T.next_story }}</div><div class="t">{{ next_post.title }}</div>
+    </a>
+    {%- endif %}
+  </nav>
+  {%- endif %}
+</article>
+{% endif %}
+{% if page.vocab or page.paper or page.glance or page.graph or page.scientist or page.scripts %}
+<script src="{{ '/assets/js/learn.js' | relative_url }}" defer></script>
+{% for s in page.scripts %}<script src="{{ '/assets/js/' | append: s | append: '.js' | relative_url }}" defer></script>{% endfor %}
+{% endif %}

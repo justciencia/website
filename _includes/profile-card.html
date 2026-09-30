@@ -1,0 +1,21 @@
+{%- comment -%} One profile tile for the Scientists grid. Usage: {% include profile-card.html p=item %} (needs c_profiles) {%- endcomment -%}
+{%- include pair-resolve.html p=include.p pool=c_profiles -%}
+{%- unless skip_card -%}
+{%- assign x_en = en_p -%}{%- assign x_es = es_p -%}{%- assign x_langs = card_langs -%}{%- assign x_shown = shown_p -%}
+{%- if x_en -%}{%- include pf.html p=x_en -%}{%- assign en_hook = pf_hook -%}{%- assign en_dlg = x_en.slug -%}{%- endif -%}
+{%- if x_es -%}{%- include pf.html p=x_es -%}{%- assign es_hook = pf_hook -%}{%- assign es_dlg = x_es.slug -%}{%- endif -%}
+{%- include pf.html p=x_shown -%}
+{%- assign pl_ = page.lang | default: "en" -%}{%- assign TT = site.data.copy.ui[pl_] -%}
+<article class="sc-tile" data-field="{{ pf_fslug }}" data-langs="{{ x_langs }}"
+  {%- if x_en %} data-en-url="{{ x_en.url | relative_url }}" data-en-dialog="sci-{{ en_dlg }}" data-en-hook="{{ en_hook | escape }}"{% endif %}
+  {%- if x_es %} data-es-url="{{ x_es.url | relative_url }}" data-es-dialog="sci-{{ es_dlg }}" data-es-hook="{{ es_hook | escape }}"{% endif %}>
+  <a class="sc-photo" href="{{ x_shown.url | relative_url }}" data-f="link" data-dialog="sci-{{ x_shown.slug }}" tabindex="-1" aria-hidden="true">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="" loading="lazy">{% else %}<span>{{ pf_name | slice: 0 }}</span>{% endif %}</a>
+  <div class="sc-kicker">{{ pf_inst }}{% if pf_field %} | {{ pf_field }}{% endif %}</div>
+  <h2 class="sc-name">{{ pf_name }}</h2>
+  {% if pf_hook %}<p class="sc-desc" data-f="hook">{{ pf_hook }}</p>{% endif %}
+  <div class="sc-langs" role="group" aria-label="{{ x_langs | replace: 'en', 'English' | replace: 'es', 'Español' }}">
+    {%- assign lang_list = x_langs | split: " " -%}{%- for lg in lang_list %}<span class="lang-badge" aria-hidden="true">{{ lg | upcase }}</span>{% endfor %}
+  </div>
+  <a class="sc-view" href="{{ x_shown.url | relative_url }}" data-f="link" data-dialog="sci-{{ x_shown.slug }}" aria-label="{{ TT.view_profile }}: {{ pf_name | escape }}">{{ TT.view_profile }} <span aria-hidden="true">&rsaquo;</span></a>
+</article>
+{%- endunless -%}

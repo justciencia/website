@@ -1,0 +1,73 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- assign L = page.lang | default: site.lang | default: "en" -%}
+{%- assign C = site.data.copy[L] -%}
+{%- assign CE = site.data.copy.en -%}
+{%- assign unapproved = false -%}
+{%- if page.approved_by_scientist == false -%}{%- assign unapproved = true -%}{%- endif -%}
+{%- assign is_home = false -%}
+{%- if page.url == "/" or page.url == "/es/" -%}{%- assign is_home = true -%}{%- endif -%}
+{%- comment -%} Use the English wording wherever the Spanish wording is still a [ES: ...] placeholder, except on the /es/ pages themselves {%- endcomment -%}
+{%- assign c_title = C.meta_title -%}{%- assign c_desc = C.meta_description -%}
+{%- if c_title contains "[ES:" and is_home == false -%}{%- assign c_title = CE.meta_title -%}{%- endif -%}
+{%- if c_desc contains "[ES:" and is_home == false -%}{%- assign c_desc = CE.meta_description -%}{%- endif -%}
+{%- if unapproved -%}
+  {%- assign m_title = "Not published yet | justciencia" -%}
+  {%- assign m_desc = "" -%}
+{%- elsif is_home -%}
+  {%- assign m_title = c_title -%}
+  {%- assign m_desc = c_desc -%}
+{%- else -%}
+  {%- assign m_title = page.title | default: "justciencia" | append: " | justciencia" -%}
+  {%- assign m_desc = page.hook | default: page.description | default: page.scientist.research | default: c_desc -%}
+{%- endif -%}
+{%- assign m_img = page.photo | default: page.scientist.photo | default: page.cover | default: page.image | default: "/assets/images/og-default.png" -%}
+{%- if page.layout == "post" or page.layout == "profile" -%}{%- assign og_type = "article" -%}{%- else -%}{%- assign og_type = "website" -%}{%- endif -%}
+<title>{{ m_title | strip_html | strip_newlines | escape }}</title>
+{%- if m_desc != "" %}
+<meta name="description" content="{{ m_desc | strip_html | strip_newlines | escape }}">
+{%- endif %}
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+{%- if unapproved %}
+<meta name="robots" content="noindex, nofollow">
+{%- elsif L == "es" and page.layout == "default" and site.data.copy.es.hero_headline contains "[ES:" %}
+<meta name="robots" content="noindex">
+{%- endif %}
+{%- unless unapproved %}
+{%- include lang-pair.html %}
+{%- assign es_ready = true -%}{%- if site.data.copy.es.hero_headline contains "[ES:" and page.layout == "default" -%}{%- assign es_ready = false -%}{%- endif -%}
+{%- if pair_url != "" and es_ready %}
+<link rel="alternate" hreflang="{{ L }}" href="{{ page.url | absolute_url }}">
+<link rel="alternate" hreflang="{{ pair_lang }}" href="{{ pair_url | absolute_url }}">
+{%- endif %}
+<meta property="og:site_name" content="justciencia">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:title" content="{{ m_title | strip_html | strip_newlines | escape }}">
+<meta property="og:description" content="{{ m_desc | strip_html | strip_newlines | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ m_img | absolute_url }}">
+<meta property="og:locale" content="{{ C.og_locale | default: CE.og_locale }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ m_title | strip_html | strip_newlines | escape }}">
+<meta name="twitter:description" content="{{ m_desc | strip_html | strip_newlines | escape }}">
+<meta name="twitter:image" content="{{ m_img | absolute_url }}">
+{%- endunless %}
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🔬</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/editorial.css' | relative_url }}">
+<script>
+  // Apply the saved theme before first paint (default is light, like the personal site).
+  (function(){
+    var t = null;
+    try { t = localStorage.getItem('justciencia-theme'); } catch(e) {}
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    document.documentElement.classList.add('js');
+  })();
+</script>
+{%- assign gc = site.data.analytics.goatcounter_code | strip -%}
+{%- if gc != "" and jekyll.environment == "production" %}
+<script data-goatcounter="https://{{ gc | escape }}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+{%- endif %}

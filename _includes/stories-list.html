@@ -1,0 +1,40 @@
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- assign seen = "|" -%}{%- assign has_es = false -%}
+{%- capture chips -%}
+{%- for s in c_stories -%}{%- unless s.archived -%}
+  {%- assign cat = s.categories | first -%}
+  {%- if cat -%}
+    {%- assign cslug = cat | slugify -%}
+    {%- capture needle -%}|{{ cslug }}|{%- endcapture -%}
+    {%- unless seen contains needle -%}{%- assign seen = seen | append: cslug | append: "|" -%}<button type="button" class="chip" data-filter="{{ cslug }}" aria-pressed="false">{{ cat }}</button>{%- endunless -%}
+  {%- endif -%}
+  {%- if s.lang == "es" or s.languages contains "es" -%}{%- assign has_es = true -%}{%- endif -%}
+{%- endunless -%}{%- endfor -%}
+{%- endcapture -%}
+{%- assign chips = chips | strip -%}
+{%- if chips != "" %}
+<div class="filters" role="group" aria-label="Filter stories by topic">
+  <button type="button" class="chip" data-filter="all" aria-pressed="true">{{ T.filter_all }}</button>{{ chips }}
+</div>
+{%- endif %}
+{%- if has_es %}
+<div class="filters lang-filters" role="group" aria-label="{{ T.filter_language }}">
+  <span class="flabel">{{ T.filter_language }}</span>
+  <button type="button" class="chip" data-lang="all" aria-pressed="true">{{ T.filter_all }}</button>
+  <button type="button" class="chip" data-lang="en" aria-pressed="false" lang="en">English</button>
+  <button type="button" class="chip" data-lang="es" aria-pressed="false" lang="es">Español</button>
+</div>
+{%- endif %}
+
+<div id="post-list" class="stories" data-default-lang="{{ L }}">
+  {%- for s in c_stories %}{% unless s.archived %}
+  {% include post-row.html post=s %}
+  {%- endunless %}{% endfor %}
+</div>
+<p class="empty" id="empty-note" hidden>{{ T.no_stories }}</p>
+{%- if c_stories.size < 1 %}<p class="empty">{{ T.more_stories }}</p>{% endif %}
+{%- assign old = c_stories | where: "archived", true %}
+{%- if old.size > 0 %}
+<p class="empty"><a class="archive-link" href="{{ '/archive/' | relative_url }}">Older stories in the archive ({{ old.size }})</a></p>
+{%- endif %}

@@ -1,0 +1,24 @@
+{%- comment -%}
+  Works out the English and Spanish versions of one item so a single card can carry both.
+  Usage: {% include pair-resolve.html p=item pool=c_stories %}   (pool = c_stories or c_profiles)
+  Sets: en_p, es_p (either may be empty), shown_p (the one to display on this page), card_langs, skip_card.
+  skip_card is true for a Spanish item whose English partner exists: the English card already covers it.
+{%- endcomment -%}
+{%- assign pr_p = include.p -%}
+{%- assign pr_lang = pr_p.lang | default: "en" -%}
+{%- assign page_lang = page.lang | default: "en" -%}
+{%- assign skip_card = false -%}{%- assign en_p = nil -%}{%- assign es_p = nil -%}
+{%- if pr_lang == "es" -%}
+  {%- assign es_p = pr_p -%}
+  {%- if pr_p.ref -%}{%- assign en_p = include.pool | where: "ref", pr_p.ref | where_exp: "q", "q.lang != 'es'" | first -%}{%- endif -%}
+  {%- if en_p -%}{%- assign skip_card = true -%}{%- endif -%}
+{%- else -%}
+  {%- assign en_p = pr_p -%}
+  {%- if pr_p.ref -%}{%- assign es_p = include.pool | where: "ref", pr_p.ref | where: "lang", "es" | first -%}{%- endif -%}
+{%- endif -%}
+{%- if page_lang == "es" and es_p -%}{%- assign shown_p = es_p -%}
+{%- elsif en_p -%}{%- assign shown_p = en_p -%}
+{%- else -%}{%- assign shown_p = es_p -%}{%- endif -%}
+{%- assign card_langs = "" -%}
+{%- if en_p -%}{%- assign card_langs = "en" -%}{%- endif -%}
+{%- if es_p or pr_p.languages contains "es" -%}{%- assign card_langs = card_langs | append: " es" | strip -%}{%- endif -%}

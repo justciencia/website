@@ -1,0 +1,196 @@
+/* justciencia: bilingual terms, vocabulary, paper box, and the pH explorer.
+   Uses the same palette variables as style.css. */
+
+/* ---------- bilingual terms ---------- */
+.term{border-bottom:2px dotted var(--clay-deep);cursor:pointer;}
+.term:focus-visible{outline:2px solid var(--clay-deep);outline-offset:2px;}
+/* Default (EN + ES): "acid (ácido)". The Spanish is the highlighted part. */
+.term .t-es{font-style:italic;color:var(--clay-deep);font-weight:500;}
+.term .t-es::before{content:" (";}
+.term .t-es::after{content:")";}
+/* Spanish only: show just the Spanish word; tap to see the English too */
+html[data-terms="es"] .term:not(.open) .t-en{display:none;}
+html[data-terms="es"] .term:not(.open) .t-es{font-style:normal;}
+html[data-terms="es"] .term:not(.open) .t-es::before,
+html[data-terms="es"] .term:not(.open) .t-es::after{content:"";}
+/* English only: show just the English word; tap to see the Spanish too */
+html[data-terms="en"] .term:not(.open) .t-es{display:none;}
+
+.term-toggle{display:flex;flex-wrap:wrap;align-items:center;gap:8px 8px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--clay);padding:14px 16px;margin:0 0 32px;font-size:14.5px;}
+.term-toggle .tt-label{font-weight:600;color:var(--walnut-deep);margin-right:6px;}
+.term-toggle .tt-label em,.term-toggle .tt-hint em{font-weight:400;color:var(--ink-soft);}
+.term-toggle .tt-hint{display:none;flex-basis:100%;margin:6px 0 0;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+html[data-terms="es"] .term-toggle .tt-hint[data-hint="es"],
+html[data-terms="en"] .term-toggle .tt-hint[data-hint="en"]{display:block;}
+
+/* ---------- vocabulary box ---------- */
+.vocab{margin-top:3.2em;background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--clay);padding:28px 28px 20px;}
+.vocab-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 16px;}
+.vocab h2{font-size:34px;font-weight:600;color:var(--green);}
+.vocab h2 em{font-size:.62em;font-weight:500;color:var(--ink-soft);margin-left:6px;}
+.vocab-sub{font-size:14.5px;color:var(--ink-soft);margin:8px 0 14px;font-weight:400;}
+.vocab-list{list-style:none;margin:0;padding:0;}
+.vocab-list li{border-top:1px solid var(--line);}
+.vocab-row{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:2px 20px;align-items:baseline;text-align:left;padding:13px 4px;}
+.vocab-row:hover{background:var(--clay-tint);}
+.v-en{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--walnut-deep);line-height:1.15;}
+.v-es{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;font-style:italic;color:var(--clay-deep);line-height:1.15;}
+.v-note{grid-column:1/-1;font-size:14px;color:var(--ink-soft);line-height:1.5;font-weight:400;}
+/* Practice mode = flashcards: English shows, Spanish (and the hint) stay hidden until you tap the row */
+.vocab.practicing .vocab-row:not(.revealed) .v-es,
+.vocab.practicing .vocab-row:not(.revealed) .v-note{visibility:hidden;}
+.vocab.practicing .vocab-row:not(.revealed) .v-es::before{content:"tap to flip";visibility:visible;color:var(--clay-deep);font-family:'Jost',sans-serif;font-style:normal;font-size:14px;font-weight:600;}
+.vocab-practice{gap:6px;}
+.vocab-practice em{font-style:italic;font-weight:400;opacity:.75;}
+@media (max-width:560px){.vocab{padding:22px 18px 14px;}.vocab-row{grid-template-columns:1fr;}}
+
+/* ---------- paper box ---------- */
+.paper-box{margin-top:28px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c);padding:18px 22px;font-weight:400;}
+.pb-kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-deep);}
+.pb-kicker em{text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink-soft);margin-left:4px;}
+.pb-title{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;line-height:1.2;margin:8px 0 6px;color:var(--walnut-deep);}
+.pb-line{font-size:14.5px;color:var(--ink-soft);}
+.pb-link{display:inline-block;margin-top:12px;font-size:15px;font-weight:600;color:var(--rust-deep);border-bottom:1.5px solid var(--rust-deep);padding-bottom:1px;}
+.pb-link em{font-weight:400;}
+.pb-note{margin-top:12px;font-size:13.5px;color:var(--ink-soft);}
+
+.pb-status{display:inline-block;margin-left:10px;padding:2px 9px;background:var(--c-tint);color:var(--walnut-deep);font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;}
+
+/* ---------- "At a glance" box ---------- */
+.glance{margin:0 0 32px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c,var(--clay));padding:20px 24px;font-weight:400;}
+.glance-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--green);line-height:1.1;}
+.glance-title em{font-size:.62em;font-weight:500;color:var(--ink-soft);margin-left:6px;}
+.glance dl{margin:12px 0 0;}
+.glance dl > div{padding:10px 0;border-top:1px solid var(--line);}
+.glance dt{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-deep,var(--clay-deep));}
+.glance dt em{text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink-soft);margin-left:4px;}
+.glance dd{margin:4px 0 0;font-size:17px;line-height:1.55;color:var(--ink);}
+
+/* ---------- graph cheat sheet ---------- */
+.graphbox{margin-top:28px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c);padding:18px 22px 10px;font-weight:400;}
+.gb-kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-deep);}
+.gb-kicker em{text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink-soft);margin-left:4px;}
+.gb-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1.15;color:var(--walnut-deep);margin:6px 0 10px;}
+.graphbox dl{margin:0;}
+.graphbox dl > div{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:9px 0;border-top:1px solid var(--line);}
+.graphbox dt{font-size:14px;font-weight:600;color:var(--walnut-deep);}
+.graphbox dt em{display:block;font-weight:400;font-size:12.5px;color:var(--ink-soft);}
+.graphbox dd{margin:0;font-size:16px;line-height:1.5;color:var(--ink);}
+@media (max-width:560px){.graphbox dl > div{grid-template-columns:1fr;}}
+
+/* ---------- chronopotentiometry explorer ---------- */
+.cpx{margin:2em 0;background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--clay);padding:22px;font-weight:400;font-size:16px;line-height:1.5;}
+.cpx [hidden]{display:none !important;}
+.cpx em{font-style:normal;font-weight:400;font-size:.88em;color:var(--ink-soft);}
+.cpx-svg{display:block;width:100%;height:auto;}
+.cpx-grid line{stroke:var(--line);stroke-width:1;}
+.cpx-axis{stroke:var(--walnut-deep);stroke-width:1.5;}
+.cpx-tick{fill:var(--ink-soft);font-size:12px;font-family:'Jost',sans-serif;}
+.cpx-axlabel{fill:var(--ink);font-size:13px;font-weight:600;font-family:'Jost',sans-serif;}
+.cpx-rest,.cpx-tau{stroke:var(--ink-soft);stroke-width:1.2;stroke-dasharray:5 4;}
+.cpx-taulabel,.cpx-restlabel{fill:var(--ink-soft);font-size:12.5px;font-family:'Jost',sans-serif;}
+.cpx-curve{fill:none;stroke:var(--clay-deep);stroke-width:3.2;stroke-linejoin:round;stroke-linecap:round;}
+.cpx-mark{cursor:pointer;}
+.cpx-mark circle{fill:var(--walnut-deep);stroke:var(--paper);stroke-width:2;transition:r .12s ease;}
+.cpx-mark text{fill:var(--paper);font-size:13px;font-weight:700;text-anchor:middle;font-family:'Jost',sans-serif;pointer-events:none;}
+.cpx-mark.active circle{fill:var(--clay-deep);r:15;}
+:root[data-theme="dark"] .cpx-mark.active text{fill:#241811;}
+.cpx-controls{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:14px;}
+.cpx-ctl label{display:flex;justify-content:space-between;gap:10px;font-size:14.5px;font-weight:600;color:var(--walnut-deep);margin-bottom:6px;}
+.cpx-ctl label output{font-variant-numeric:lining-nums tabular-nums;color:var(--clay-deep);}
+.cpx-ctl input[type=range]{width:100%;accent-color:var(--clay-deep);}
+.cpx-readout{margin:16px 0 0;padding:12px 14px;background:var(--clay-tint);border-left:4px solid var(--clay-deep);font-size:16px;font-weight:600;color:var(--walnut-deep);}
+.cpx-readout small{display:block;font-weight:400;font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+.cpx-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.cpx-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:var(--ivory);border:1px solid var(--line);font-size:14.5px;font-weight:600;color:var(--ink-soft);}
+.cpx-chip b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--walnut-deep);color:var(--paper);font-size:12.5px;}
+.cpx-chip[aria-pressed="true"]{background:var(--clay-tint);border-color:var(--clay-deep);color:var(--walnut-deep);}
+.cpx-panel{margin-top:12px;padding:16px 18px;background:var(--ivory);border:1px solid var(--line);min-height:8.5em;}
+.cpx-panel h4{font-size:24px;font-weight:600;color:var(--walnut-deep);line-height:1.15;margin-bottom:6px;}
+.cpx-panel h4 em{font-size:.62em;font-style:italic;margin-left:6px;}
+.cpx-panel p{font-size:16px;line-height:1.55;color:var(--ink);margin:0 0 6px;}
+.cpx-panel p.es{font-size:14.5px;font-style:italic;color:var(--ink-soft);margin:0;}
+.cpx-foot{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);}
+@media (max-width:560px){
+  .cpx{padding:14px;}
+  .cpx-controls{grid-template-columns:1fr;}
+  .cpx-tick{font-size:17px;}
+  .cpx-axlabel{font-size:18px;}
+  .cpx-taulabel,.cpx-restlabel{font-size:17px;}
+  .cpx-mark text{font-size:19px;}
+  .cpx-mark circle{r:19px;}
+  .cpx-mark.active circle{r:22px;}
+}
+
+/* ---------- featured scientist card ---------- */
+.scibox{margin-top:28px;display:flex;gap:22px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c);padding:20px 22px;font-weight:400;}
+.sb-photo{flex:0 0 150px;aspect-ratio:4/5;background:var(--clay-tint);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.sb-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.sb-photo span{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;color:var(--clay-deep);}
+.sb-info{min-width:0;}
+.sb-kicker{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-deep);}
+.sb-name{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;line-height:1.1;color:var(--walnut-deep);margin:6px 0 4px;}
+.sb-uni{font-size:17px;font-weight:600;color:var(--walnut-deep);}
+.sb-line{font-size:15.5px;color:var(--ink-soft);}
+.sb-research{margin:12px 0 0;font-size:16.5px;line-height:1.55;color:var(--ink);}
+.sb-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;}
+.sb-links a{font-size:14.5px;font-weight:600;color:var(--rust-deep);border-bottom:1.5px solid var(--rust-deep);padding-bottom:1px;}
+.sb-credit{margin-top:12px;font-size:12.5px;color:var(--ink-soft);}
+@media (max-width:560px){.scibox{flex-direction:column;}.sb-photo{flex-basis:auto;width:180px;}}
+
+/* ---------- pH explorer ---------- */
+.phx{margin:2em 0;background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--clay);padding:22px;font-weight:400;font-size:16px;line-height:1.5;}
+.phx [hidden]{display:none !important;}
+.phx small,.phx em{font-style:normal;font-weight:400;font-size:.85em;color:inherit;opacity:.8;}
+.phx-tabs{display:flex;gap:8px;margin-bottom:18px;}
+.phx-tab{padding:10px 18px;border:1px solid var(--line);background:var(--ivory);font-size:15px;font-weight:600;color:var(--ink-soft);}
+.phx-tab small{margin-left:4px;}
+.phx-tab[aria-selected="true"]{background:var(--clay-deep);border-color:var(--clay-deep);color:var(--brand-ink);}
+:root[data-theme="dark"] .phx-tab[aria-selected="true"]{color:#241811;}
+.phx-stage{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+.phx-beaker{width:150px;height:auto;flex-shrink:0;}
+.phx-liquid{transition:fill .12s linear;}
+.phx-glass{stroke:var(--walnut-deep);}
+.phx-marks path{stroke:var(--walnut-deep);stroke-width:2;opacity:.55;}
+.phx-read{flex:1 1 240px;min-width:0;}
+.phx-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--walnut-deep);line-height:1;}
+.phx-num b{font-size:72px;font-weight:700;margin-left:6px;font-variant-numeric:lining-nums tabular-nums;}
+.phx-label{margin-top:8px;font-size:20px;font-weight:600;color:var(--walnut-deep);}
+.phx-label .phx-l-es{font-weight:400;font-style:italic;color:var(--ink-soft);}
+.phx-near{margin-top:8px;font-size:15px;color:var(--ink-soft);min-height:1.5em;}
+.phx-sliderwrap{position:relative;padding-top:38px;margin-top:8px;}
+.phx-range{-webkit-appearance:none;appearance:none;display:block;width:100%;height:18px;margin:0;border:1px solid var(--line);background:var(--phx-grad);cursor:pointer;}
+.phx-range::-webkit-slider-thumb{-webkit-appearance:none;box-sizing:border-box;width:26px;height:36px;background:var(--paper);border:3px solid var(--walnut-deep);cursor:grab;}
+.phx-range::-moz-range-thumb{box-sizing:border-box;width:26px;height:36px;background:var(--paper);border:3px solid var(--walnut-deep);border-radius:0;cursor:grab;}
+.phx-range:focus-visible{outline:2px solid var(--clay-deep);outline-offset:6px;}
+.phx-range:disabled{opacity:.7;cursor:default;}
+.phx-scale{display:flex;justify-content:space-between;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--ink-soft);}
+.phx-scale span:nth-child(2){text-align:center;}
+.phx-scale span:last-child{text-align:right;}
+.phx-real{position:absolute;top:0;width:0;height:38px;pointer-events:none;}
+.phx-real-t{position:absolute;bottom:22px;left:0;transform:translateX(-50%);background:var(--walnut-deep);color:var(--paper);font-size:12.5px;font-weight:700;padding:3px 8px;white-space:nowrap;}
+.phx-real::after{content:"";position:absolute;left:-1px;top:16px;width:2px;height:24px;background:var(--walnut-deep);}
+.phx-hint{margin:18px 0 10px;font-size:14.5px;color:var(--ink-soft);}
+.phx-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.phx-chip{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:8px 12px;background:var(--ivory);border:1px solid var(--line);text-align:left;transition:border-color .15s ease;}
+.phx-chip:hover{border-color:var(--green);}
+.phx-chip-en{font-size:15px;font-weight:600;color:var(--walnut-deep);}
+.phx-chip-es{font-size:13px;font-style:italic;color:var(--ink-soft);}
+.phx-chip-ph{font-size:12px;font-weight:600;color:var(--clay-deep);margin-top:2px;}
+.phx-chip[aria-pressed="true"]{background:var(--clay-tint);border-color:var(--clay-deep);}
+.phx-q{margin:22px 0 0;}
+.phx-q-lead{display:block;font-size:14px;font-weight:600;color:var(--ink-soft);}
+.phx-q-name{display:block;font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1.1;color:var(--walnut-deep);margin-top:2px;}
+.phx-q-name b{font-weight:700;}
+.phx-q-name i{font-size:.62em;color:var(--ink-soft);font-weight:500;}
+.phx-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px;}
+.phx-actions .pill-btn small{opacity:.85;}
+.phx-result{margin:16px 0 0;font-size:17px;font-weight:600;color:var(--walnut-deep);}
+.phx-score{margin:6px 0 0;font-size:14px;color:var(--ink-soft);}
+.phx-foot{margin:22px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);}
+@media (max-width:560px){
+  .phx{padding:16px;}
+  .phx-beaker{width:110px;}
+  .phx-num b{font-size:56px;}
+  .phx-stage{gap:16px;}
+}

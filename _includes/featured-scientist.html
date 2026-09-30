@@ -1,0 +1,32 @@
+{%- comment -%}
+  The "Featured scientist" section under the hero. Needs c_profiles.
+  Shows the approved profile marked  featured: true,  otherwise the newest approved profile.
+  Sets feat_gid so the "Recent profiles" row can skip the featured person.
+{%- endcomment -%}
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- if L == "es" -%}{%- assign lp = "/es" -%}{%- else -%}{%- assign lp = "" -%}{%- endif -%}
+{%- assign feat = nil -%}{%- assign feat_gid = "" -%}
+{%- comment -%} Candidates must exist in this page's language (English home: an English version; Spanish home: a Spanish version) {%- endcomment -%}
+{%- for q in c_profiles -%}{%- if q.featured -%}{%- include pair-resolve.html p=q pool=c_profiles -%}{%- assign has_lang = false -%}{%- if L == "es" -%}{%- if es_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- else -%}{%- if en_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- endif -%}{%- unless skip_card -%}{%- if has_lang -%}{%- assign feat = q -%}{%- break -%}{%- endif -%}{%- endunless -%}{%- endif -%}{%- endfor -%}
+{%- unless feat -%}{%- for q in c_profiles -%}{%- include pair-resolve.html p=q pool=c_profiles -%}{%- assign has_lang = false -%}{%- if L == "es" -%}{%- if es_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- else -%}{%- if en_p -%}{%- assign has_lang = true -%}{%- endif -%}{%- endif -%}{%- unless skip_card -%}{%- if has_lang -%}{%- assign feat = q -%}{%- break -%}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endunless -%}
+{%- if feat -%}
+{%- include pair-resolve.html p=feat pool=c_profiles -%}
+{%- assign feat_gid = en_p.url | default: es_p.url -%}
+{%- include pf.html p=shown_p -%}
+{%- assign f_langs = card_langs | split: " " -%}
+<section class="ed-scientist" id="featured-scientist" aria-label="{{ T.featured_scientist }}">
+  <div class="container sci-wrap">
+    <a class="sci-band-photo" href="{{ shown_p.url | relative_url }}" tabindex="-1" aria-hidden="true">{% if pf_photo %}<img src="{{ pf_photo | relative_url }}" alt="{{ pf_alt | escape }}" loading="lazy">{% else %}<span>{{ pf_name | slice: 0 }}</span>{% endif %}</a>
+    <div class="sci-band-text">
+      <div class="kicker">{{ T.featured_scientist }}</div>
+      <h2>{{ pf_name }}</h2>
+      <div class="sci-band-uni">{{ pf_inst }}{% if pf_field %} &middot; {{ pf_field }}{% endif %}</div>
+      {% if pf_science_line %}<p class="sci-band-science">{{ pf_science_line }}</p>{% endif %}
+      {% if pf_path_line %}<p class="sci-band-path"><span class="sci-band-label">{{ T.the_path }}</span>{{ pf_path_line }}</p>{% endif %}
+      {% if f_langs.size > 1 %}<div class="sc-langs" role="group" aria-label="English, Español">{% for lg in f_langs %}<span class="lang-badge" aria-hidden="true">{{ lg | upcase }}</span>{% endfor %}</div>{% endif %}
+      <div class="sci-band-links"><a class="readlink" href="{{ shown_p.url | relative_url }}">{{ T.read_profile }} <span aria-hidden="true">&rarr;</span></a><a class="readlink alt" href="{{ lp | append: '/scientists/' | relative_url }}">{{ T.all_scientists }}</a></div>
+    </div>
+  </div>
+</section>
+{%- endif -%}

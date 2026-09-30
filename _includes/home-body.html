@@ -1,0 +1,44 @@
+{%- include collect.html -%}
+{%- assign L = page.lang | default: "en" -%}
+{%- assign T = site.data.copy.ui[L] -%}
+{%- assign C = site.data.copy[L] -%}
+{%- if L == "es" -%}{%- assign lp = "/es" -%}{%- else -%}{%- assign lp = "" -%}{%- endif -%}
+{%- assign latest = c_stories | first -%}
+{%- assign hl = C.hero_headline -%}
+{%- assign hparts = hl | split: ". " -%}
+{%- assign hfirst = hparts[0] | size | plus: 2 -%}
+<section class="hero" id="hero">
+  <svg class="orbits" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g class="spin" fill="none" stroke-width="1.6">
+      <g transform="rotate(0 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:#F6BB15"/><circle cx="562" cy="300" r="9" style="fill:#F6BB15;stroke:none"/></g>
+      <g transform="rotate(60 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:rgba(246,187,21,.6)"/><circle cx="38" cy="300" r="9" style="fill:rgba(246,187,21,.6);stroke:none"/></g>
+      <g transform="rotate(120 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:rgba(244,237,227,.55)"/><circle cx="562" cy="300" r="9" style="fill:rgba(244,237,227,.7);stroke:none"/></g>
+      <circle cx="300" cy="300" r="24" style="fill:#F6BB15;stroke:none"/>
+      <circle cx="300" cy="300" r="10" style="fill:#C2650A;stroke:none"/>
+    </g>
+  </svg>
+  <div class="container">
+    {% if L == "es" %}{% include lang-switch.html %}{% endif %}
+    <div class="hero-copy">
+      <h1 class="hero-headline">{% if hparts.size > 1 %}{{ hparts[0] }}. <span class="gold">{{ hl | slice: hfirst, 400 }}</span>{% else %}{{ hl }}{% endif %}</h1>
+      <p class="hero-subline">{{ C.hero_subline }}</p>
+      <div class="hero-actions">
+        <a href="{{ lp | append: '/scientists/' | relative_url }}" class="pill-btn pill-btn-primary">{{ C.hero_primary }}</a>
+        {%- if latest %}
+        {%- include pair-resolve.html p=latest pool=c_stories %}
+        <a href="{{ shown_p.url | relative_url }}" class="pill-btn pill-btn-outline">{{ C.hero_secondary }}</a>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#featured-scientist" aria-label="{{ T.scroll }}">{{ T.scroll }}</a>
+</section>
+
+{% include featured-scientist.html %}
+{% include recent-profiles.html %}
+
+<div class="container blog" id="stories">
+  <div class="section-head"><h2>{{ T.all_stories }}</h2></div>
+  <p class="section-intro">{{ T.stories_intro }}</p>
+  {% include stories-list.html %}
+</div>

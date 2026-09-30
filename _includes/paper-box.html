@@ -1,0 +1,9 @@
+{%- assign pp = page.paper -%}
+<aside class="paper-box" aria-label="Original paper">
+  <div class="pb-kicker">Original paper{% if pp.status %}<span class="pb-status">{{ pp.status }}</span>{% endif %}</div>
+  <div class="pb-title">{{ pp.title }}</div>
+  {%- if pp.authors %}<div class="pb-line">{{ pp.authors }}</div>{% endif %}
+  {%- if pp.journal or pp.year %}<div class="pb-line"><em>{{ pp.journal }}</em>{% if pp.journal and pp.year %}, {% endif %}{{ pp.year }}</div>{% endif %}
+  {%- if pp.url %}<a class="pb-link" href="{{ pp.url }}" target="_blank" rel="noopener">Read the original paper</a>{% endif %}
+  <div class="pb-note">Summary in my own words.</div>
+</aside>
