@@ -8,6 +8,7 @@
   <div class="container foot-inner">
     <div>&copy; {{ 'now' | date: "%Y" }} justciencia. All rights reserved. Built with e<sup>&minus;</sup>.</div>
     <div>{{ fl }}</div>
+    {%- if L == "en" and site.data.get_involved.apps_script_url and site.data.get_involved.apps_script_url != "" %}<div><a href="{{ '/about/#get-involved' | relative_url }}">Get involved</a></div>{% endif %}
     {%- if gc != "" %}<div class="foot-note">{{ T.analytics_note }}</div>{% endif %}
   </div>
 </footer>

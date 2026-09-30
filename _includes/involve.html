@@ -1,0 +1,68 @@
+{%- assign apply_url = site.data.get_involved.apps_script_url -%}
+{%- if apply_url and apply_url != "" -%}
+<section class="apply-band" id="get-involved" data-endpoint="{{ apply_url }}" aria-labelledby="gi-title">
+  <div class="container apply-wrap">
+    <div class="apply-intro">
+      <div class="eyebrow">Get involved</div>
+      <h2 id="gi-title">Interested in supporting justciencia?</h2>
+      <p>justciencia is free and bilingual, and I&rsquo;m working to make it self-sustaining through grants, a fellowship, and partnerships. If you&rsquo;d like to fund, partner, volunteer, write about the project, or help in some other way, tell me a little about yourself and I&rsquo;ll get back to you. I can&rsquo;t accept donations yet, so for now this is just a way to reach me.</p>
+      <button type="button" class="apply-toggle" id="gi-toggle" aria-expanded="false" aria-controls="gi-panel" disabled>Get involved <span class="apply-caret" aria-hidden="true"></span></button>
+      <p class="apply-status" id="gi-status" role="status" aria-live="polite"></p>
+      <noscript><p class="apply-status">This form needs JavaScript to work.</p></noscript>
+    </div>
+    <div class="apply-panel" id="gi-panel" inert>
+      <div class="apply-inner">
+        <form id="gi-form" class="apply-form" novalidate>
+          <div class="fld">
+            <label for="gi-name">Your name <span class="req" aria-hidden="true">*</span></label>
+            <input id="gi-name" name="name" type="text" autocomplete="name" maxlength="120">
+            <div class="err" id="gi-name-err"></div>
+          </div>
+          <div class="fld">
+            <label for="gi-org">Organization <span class="opt">(optional)</span></label>
+            <input id="gi-org" name="organization" type="text" autocomplete="organization" maxlength="200">
+          </div>
+          <div class="fld">
+            <label for="gi-email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="gi-email" name="email" type="email" autocomplete="email" maxlength="200" aria-describedby="gi-email-help">
+            <div class="help" id="gi-email-help">Private. Only used to reply to you.</div>
+            <div class="err" id="gi-email-err"></div>
+          </div>
+          <div class="fld">
+            <label for="gi-help">How would you like to help? <span class="req" aria-hidden="true">*</span></label>
+            <select id="gi-help" name="help">
+              <option value="">Choose one</option>
+              <option>Funding</option>
+              <option>Partnership</option>
+              <option>Volunteering</option>
+              <option>Press</option>
+              <option>Other</option>
+            </select>
+            <div class="err" id="gi-help-err"></div>
+          </div>
+          <div class="fld full">
+            <label for="gi-message">Message <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="gi-message" name="message" rows="5" maxlength="1500" aria-describedby="gi-message-help"></textarea>
+            <div class="help" id="gi-message-help">A few sentences is plenty. <span class="count" id="gi-count">0 / 1500</span></div>
+            <div class="err" id="gi-message-err"></div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="fld full consent">
+            <label class="check"><input type="checkbox" id="gi-consent" name="consent" value="yes"> <span>It&rsquo;s okay to email me about this. <span class="req" aria-hidden="true">*</span></span></label>
+            <div class="err" id="gi-consent-err"></div>
+          </div>
+          <div class="full actions">
+            <button type="submit" class="apply-submit" id="gi-submit">Send</button>
+            <p class="apply-status" id="gi-form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+        <div class="apply-done" id="gi-done" hidden tabindex="-1">
+          <h3>Thank you!</h3>
+          <p>I read every message and I&rsquo;ll get back to you by email soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="{{ '/assets/js/involve.js' | relative_url }}" defer></script>
+{%- endif -%}

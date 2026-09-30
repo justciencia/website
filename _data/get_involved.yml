@@ -1,0 +1,8 @@
+# "Get involved" form (About page).
+#
+# After you set up the second Google Sheet + script (see get-involved-google-script.txt),
+# paste its "Web app URL" between the quotes. This is a DIFFERENT address from the one in applications.yml.
+# Leave it empty ("") and the "Get involved" section and footer link stay hidden.
+#
+# To open or close the form, use the checkbox in the "Settings" tab of that Google Sheet. It changes instantly.
+apps_script_url: ""

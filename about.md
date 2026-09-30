@@ -3,6 +3,7 @@ layout: page
 title: About justciencia
 eyebrow: About
 permalink: /about/
+get_involved: true
 description: "justciencia celebrates Latino scientists and engineers, honoring their discoveries and the long, often unseen paths that led them there."
 ---
 ## My story
@@ -34,5 +35,7 @@ Scientists review and approve their profiles in writing before anything is publi
 3. The scientist reads the full draft and asks for any changes.
 4. The scientist approves it in writing. An email is enough.
 5. Only then do we publish it.
+
+Interested in supporting the project? [Get in touch](#get-involved) below.
 
 Know a scientist whose story should be told? You can [nominate a scientist]({{ '/scientists/#apply' | relative_url }}), including yourself. If you spot a mistake anywhere on the site, open an issue on this site's GitHub repository and we'll fix it.
