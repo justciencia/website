@@ -5,4 +5,4 @@
 # Leave it empty ("") and the "Get involved" section and footer link stay hidden.
 #
 # To open or close the form, use the checkbox in the "Settings" tab of that Google Sheet. It changes instantly.
-apps_script_url: ""
+apps_script_url: "https://script.google.com/macros/s/AKfycbwUn-6pcfX76wmxOchja5ozkB6dSW5DnVCLFymCE2G9rgPxzzqHTF3YJ9JpWqvGDgo4/exec"
