@@ -13,6 +13,7 @@ sitemap: false
   <id>{{ '/' | absolute_url }}</id>
   <subtitle>{{ site.data.copy.en.footer_line | xml_escape }}</subtitle>
   {%- comment %} Only approved posts. Summaries only, never the full text. {% endcomment %}
+  {%- unless site.data.launch.coming_soon %}
   {%- for post in c_approved limit: 20 %}
   <entry>
     <title>{{ post.title | xml_escape }}</title>
@@ -23,4 +24,5 @@ sitemap: false
     <summary>{{ post.hook | default: post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 40 | xml_escape }}</summary>
   </entry>
   {%- endfor %}
+  {%- endunless %}
 </feed>

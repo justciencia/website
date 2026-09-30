@@ -3,6 +3,30 @@
 <head>
 {% include head.html %}
 </head>
+{%- if site.data.launch.coming_soon -%}
+<body class="ed cover-page">
+<main id="top">
+<section class="hero cover">
+  <svg class="orbits" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g class="spin" fill="none" stroke-width="1.6">
+      <g transform="rotate(0 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:#F6BB15"/><circle cx="562" cy="300" r="9" style="fill:#F6BB15;stroke:none"/></g>
+      <g transform="rotate(60 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:rgba(246,187,21,.6)"/><circle cx="38" cy="300" r="9" style="fill:rgba(246,187,21,.6);stroke:none"/></g>
+      <g transform="rotate(120 300 300)"><ellipse cx="300" cy="300" rx="262" ry="96" style="stroke:rgba(244,237,227,.55)"/><circle cx="562" cy="300" r="9" style="fill:rgba(244,237,227,.7);stroke:none"/></g>
+      <circle cx="300" cy="300" r="24" style="fill:#F6BB15;stroke:none"/>
+      <circle cx="300" cy="300" r="10" style="fill:#C2650A;stroke:none"/>
+    </g>
+  </svg>
+  <div class="container">
+    <div class="hero-copy">
+      <div class="cs-mark">justciencia</div>
+      <h1 class="hero-headline"><span class="gold">{{ site.data.launch.headline }}</span></h1>
+      <p class="hero-subline">{{ site.data.launch.subline }}</p>
+    </div>
+  </div>
+</section>
+</main>
+</body>
+{%- else -%}
 <body class="ed">
 {%- assign L = page.lang | default: "en" -%}
 <a class="skip-link" href="#top">{{ site.data.copy.ui[L].skip }}</a>
@@ -13,4 +37,5 @@
 </main>
 {% include footer.html %}
 </body>
+{%- endif -%}
 </html>

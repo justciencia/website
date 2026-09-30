@@ -393,3 +393,8 @@ main:focus{outline:none;}
 
 /* anything a filter marks as hidden must really disappear, whatever layout rule it has */
 .ed [hidden]{display:none !important;}
+
+/* coming-soon cover */
+.cover-page .hero.cover{min-height:100vh;min-height:100svh;}
+.cs-mark{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);font-weight:600;color:var(--on-dark);margin-bottom:28px;}
+.cover-page .hero-headline{max-width:none;margin-bottom:22px;}
