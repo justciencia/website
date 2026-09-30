@@ -6,8 +6,8 @@ lang: en
 
 # Repo named "website"  (site at justciencia.github.io/website/):  baseurl: "/website"
 # Repo named "justciencia.github.io" (site at the root) or a custom domain:  baseurl: ""
-url: "https://justciencia.github.io"
-baseurl: "/website"
+url: "https://justciencia.com"
+baseurl: ""
 
 author:
   name: justciencia
