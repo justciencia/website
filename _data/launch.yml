@@ -2,6 +2,6 @@
 #   coming_soon: true   -> every page on the site shows only the cover below. Nothing else is published on the website.
 #   coming_soon: false  -> the full site is visible.
 # Change true to false (and commit) on launch day.
-coming_soon: false
+coming_soon: true
 headline: "Coming soon."
 subline: "Celebrating Latino scientists and the paths that led them here."
