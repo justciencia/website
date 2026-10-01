@@ -27,6 +27,7 @@ body.ed{--on-dark:#F4EDE3;--on-dark-soft:#C9BFB3;--rule-dark:rgba(244,237,227,.1
 /* ---------- hero ---------- */
 .ed .hero{background:radial-gradient(70% 90% at 78% 40%,var(--glow),transparent 62%),var(--night);color:var(--on-dark);min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:150px 0 130px;}
 .ed .hero .container{width:100%;}
+.ed .container{max-width:1480px;padding-inline:clamp(24px,4.5vw,72px);}
 .ed .hero-copy{max-width:820px;}
 .ed .hero .eyebrow{color:var(--yellow);letter-spacing:.24em;}
 .ed .hero h1{color:var(--on-dark);font-size:clamp(58px,10vw,148px);line-height:.92;font-weight:600;margin:22px 0 48px;}
