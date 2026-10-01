@@ -103,6 +103,11 @@
               <textarea id="ap-notes" name="notes" rows="3" maxlength="800"></textarea>
             </div>
             <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="fld full consent">
+              <label class="check"><input type="checkbox" id="ap-fgli" name="fgli" value="yes"> <span><span data-m="self">I&rsquo;m the first in my family to complete a four-year college degree, and I grew up with limited resources.</span><span data-m="other" hidden>To the best of my knowledge, this scientist was the first in their family to complete a four-year college degree and grew up with limited resources.</span> <span class="req" aria-hidden="true">*</span></span></label>
+              <div class="help">justciencia features first-generation, low-income scientists. See <a href="{{ '/about/' | relative_url }}#what-we-mean-by-first-generation-low-income">what we mean</a>.</div>
+              <div class="err" id="ap-fgli-err"></div>
+            </div>
             <div class="fld full consent" data-m="other" hidden>
               <label class="check"><input type="checkbox" id="ap-tell" name="tell" value="yes" disabled> <span>I&rsquo;ll let them know I nominated them. <span class="req" aria-hidden="true">*</span></span></label>
               <div class="err" id="ap-tell-err"></div>
