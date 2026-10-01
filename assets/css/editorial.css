@@ -35,7 +35,7 @@ body.ed{--on-dark:#F4EDE3;--on-dark-soft:#C9BFB3;--rule-dark:rgba(244,237,227,.1
 .ed .hero .pill-btn-primary:hover{background:#FFD24A;}
 .ed .hero .pill-btn-outline{color:var(--on-dark);border-color:rgba(244,237,227,.45);}
 .ed .hero .pill-btn-outline:hover{background:var(--on-dark);color:#241811;border-color:var(--on-dark);}
-.ed .orbits{right:-19%;width:min(58%,800px);opacity:.95;}
+.ed .orbits{right:3%;width:min(46%,680px);opacity:.95;}
 .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--on-dark-soft);}
 .scroll-cue::after{content:"";width:1px;height:46px;background:linear-gradient(var(--yellow),transparent);animation:cue 2.2s ease-in-out infinite;}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top;}45%{transform:scaleY(1);transform-origin:top;}55%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
