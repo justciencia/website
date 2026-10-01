@@ -400,3 +400,9 @@ main:focus{outline:none;}
 .cover-page .hero.cover{min-height:100vh;min-height:100svh;}
 .cs-mark{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);font-weight:600;color:var(--on-dark);margin-bottom:28px;}
 .cover-page .hero-headline{max-width:none;margin-bottom:22px;}
+
+/* story and profile pages: body text lines up with the logo and the dark header (left edge), still a comfortable reading width */
+:root{--gx:clamp(24px,4.5vw,72px);--gl:max(var(--gx),calc((100% - 1480px)/2 + var(--gx)));}
+.ed .post-body-wrap,.ed .author-box,.ed .post-nav,.ed .pullquote{max-width:760px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
+.ed .post-hero{max-width:980px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
+.ed .prose figure{margin:2em 0;}
