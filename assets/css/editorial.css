@@ -403,6 +403,6 @@ main:focus{outline:none;}
 
 /* story and profile pages: body text lines up with the logo and the dark header (left edge), still a comfortable reading width */
 :root{--gx:clamp(24px,4.5vw,72px);--gl:max(var(--gx),calc((100% - 1480px)/2 + var(--gx)));}
-.ed .post-body-wrap,.ed .author-box,.ed .post-nav,.ed .pullquote{max-width:760px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
-.ed .post-hero{max-width:980px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
+.ed .post-body-wrap,.ed .author-box,.ed .post-nav,.ed .pullquote{max-width:900px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
+.ed .post-hero{max-width:1000px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
 .ed .prose figure{margin:2em 0;}
