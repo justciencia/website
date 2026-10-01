@@ -109,7 +109,7 @@
   function validate() {
     var firstBad = null;
     function bad(id, msg, focusEl) { fieldErr(id, msg); if (!firstBad) firstBad = focusEl || band.querySelector('#' + id); }
-    ['ap-who', 'ap-nom-name', 'ap-nom-email', 'ap-name', 'ap-email', 'ap-stage', 'ap-institution', 'ap-field', 'ap-summary', 'ap-link', 'ap-tell', 'ap-consent'].forEach(function (id) { fieldErr(id, ''); });
+    ['ap-who', 'ap-nom-name', 'ap-nom-email', 'ap-name', 'ap-email', 'ap-stage', 'ap-institution', 'ap-field', 'ap-summary', 'ap-link', 'ap-fgli', 'ap-tell', 'ap-consent'].forEach(function (id) { fieldErr(id, ''); });
     var v = function (n) { return (form.elements[n] && form.elements[n].value || '').trim(); };
     if (!mode) { bad('ap-who', 'Please choose one.', document.getElementById('ap-who-myself')); return false; }
     if (mode === 'other') {
@@ -125,6 +125,7 @@
     if (!v('field')) bad('ap-field', 'Please enter ' + who + 'scientific topic.');
     if (v('summary').length < 40) bad('ap-summary', 'Please write a few sentences (at least 40 characters).');
     if (v('link') && !/^https?:\/\/\S+\.\S+/.test(v('link'))) bad('ap-link', 'Please enter a full link starting with https://');
+    if (!form.elements.fgli.checked) bad('ap-fgli', 'Please check the box to continue.');
     if (mode === 'other' && !form.elements.tell.checked) bad('ap-tell', 'Please check the box to continue.');
     if (!form.elements.consent.checked) bad('ap-consent', 'Please check the box to continue.');
     if (firstBad && firstBad.focus) firstBad.focus();
