@@ -384,8 +384,9 @@ main:focus{outline:none;}
 @media (max-width:760px){.apply-form .apply-rest{grid-template-columns:1fr;gap:22px;}}
 
 /* line the stories section up with the sections above it, on desktop and mobile */
-.ed .blog{padding-inline:56px;}
-@media (max-width:860px){.ed .blog{padding-inline:24px;}}
+.ed .blog{padding-inline:clamp(24px,4.5vw,72px);}
+/* story and profile headers line up with the logo and menu */
+.ed .post-head .wrap,.ed .profile-head .wrap{max-width:1480px;margin:0 auto;padding-inline:clamp(24px,4.5vw,72px);}
 
 /* narrow screens: long words (for example ELECTROCHEMISTRY) must wrap inside their card, not widen the page */
 .rp-card,.sc-tile{min-width:0;}
