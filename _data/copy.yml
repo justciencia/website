@@ -5,15 +5,15 @@
 #  Anything in [ES: ...] brackets is a placeholder waiting for your Spanish wording.
 # ======================================================================
 en:
-  hero_headline: "Meet the Latino scientists. Understand their science."
-  hero_subline: "Celebrating Latino scientists and the paths that led them here."
+  hero_headline: "Meet the scientists. Understand their science."
+  hero_subline: "Celebrating scientists powered by their roots."
   hero_primary: "Meet the scientists"
   hero_secondary: "Read the latest story"
   # Shown in the browser tab and in Google results (keep under about 60 characters):
-  meta_title: "justciencia | Meet the Latino scientists. Understand their science."
+  meta_title: "justciencia | Meet the scientists. Understand their science."
   # Shown in Google results and in link previews on social media (keep under 160 characters):
-  meta_description: "Free, bilingual profiles celebrating Latino scientists and engineers and the paths that led them here, with their science explained in plain language."
-  footer_line: "Celebrating Latino scientists and the paths that led them here."
+  meta_description: "Free, bilingual profiles of first-generation, low-income scientists and engineers, powered by their roots, with their science explained in plain language."
+  footer_line: "Celebrating scientists powered by their roots."
   og_locale: "en_US"
 
 es:
@@ -70,8 +70,8 @@ ui:
     not_published_title: "Not published yet"
     not_published_text: "This profile is waiting for the scientist's written approval, so it isn't public yet."
     analytics_note: "We use privacy-friendly analytics: no cookies and no personal data."
-    scientists_title: "Latino scientists, in their own words"
-    scientists_intro: "Conversations with Latino scientists about their research, explained in plain language. Select a profile to learn more."
+    scientists_title: "Scientists, in their own words"
+    scientists_intro: "Conversations with first-generation, low-income scientists about their research, explained in plain language. Select a profile to learn more."
     stories_title: "Stories"
     recent_empty_cta: "Nominate a scientist"
     scroll: "Scroll"
@@ -115,8 +115,8 @@ ui:
     not_published_title: "Aún no publicado"
     not_published_text: "Este perfil está esperando la aprobación por escrito del científico, por eso todavía no es público."
     analytics_note: "Usamos analítica que respeta tu privacidad: sin cookies ni datos personales."
-    scientists_title: "Científicos latinos, en sus propias palabras"
-    scientists_intro: "Conversaciones con científicos latinos sobre su investigación, explicadas en lenguaje sencillo. Elige un perfil para saber más."
+    scientists_title: "Científicos, en sus propias palabras"
+    scientists_intro: "Conversaciones con científicos de primera generación y de bajos ingresos sobre su investigación, explicadas en lenguaje sencillo. Elige un perfil para saber más."
     stories_title: "Historias"
     recent_empty_cta: "Nominar a un científico"
     scroll: "Desplázate"
