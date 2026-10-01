@@ -406,3 +406,11 @@ main:focus{outline:none;}
 .ed .post-body-wrap,.ed .author-box,.ed .post-nav,.ed .pullquote{max-width:900px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
 .ed .post-hero{max-width:1000px;margin-left:var(--gl);margin-right:var(--gx);padding-inline:0;}
 .ed .prose figure{margin:2em 0;}
+
+/* About, Topics and other text pages: centered column at the same width as stories */
+.ed .page-body .narrow{max-width:900px;margin-inline:auto;}
+
+/* scrollytelling graph: start at the left edge of the text column (it used to assume a centered column) */
+@media (min-width:861px){
+  .ed .scrolly{width:min(1180px,calc(100vw - 2 * var(--gx)));margin-left:0;}
+}
